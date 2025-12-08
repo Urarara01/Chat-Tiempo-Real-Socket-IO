@@ -54,10 +54,10 @@ function Chat({ socket, username, room, setRoom, onLogout }) {
             <div className="chat-main">
                 <div className="chat-header">
                     <h3>#{room}</h3>
-                    <span className="user-count">{users.length} users online</span>
+                    <span className="user-count">{users.length} usuarios en línea</span>
                 </div>
                 <MessageList messages={messages} username={username} />
-                {typingUser && <div className="typing-indicator">{typingUser} is typing...</div>}
+                {typingUser && <div className="typing-indicator">{typingUser} está escribiendo...</div>}
                 <MessageInput socket={socket} />
             </div>
         </div>

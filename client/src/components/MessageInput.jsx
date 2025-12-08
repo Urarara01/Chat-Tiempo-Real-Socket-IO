@@ -4,13 +4,48 @@ import axios from 'axios';
 function MessageInput({ socket }) {
     const [message, setMessage] = useState('');
     const [file, setFile] = useState(null);
+    const [preview, setPreview] = useState(null);
 
     const handleTyping = () => {
         socket.emit('typing');
     };
 
     const handleFileChange = (e) => {
-        setFile(e.target.files[0]);
+        const selectedFile = e.target.files[0];
+        if (selectedFile) {
+            setFile(selectedFile);
+            if (selectedFile.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    setPreview(reader.result);
+                };
+                reader.readAsDataURL(selectedFile);
+            } else {
+                setPreview(null);
+            }
+        }
+    };
+
+    const handlePaste = (e) => {
+        const pastedFile = e.clipboardData.files[0];
+        if (pastedFile) {
+            e.preventDefault();
+            setFile(pastedFile);
+            if (pastedFile.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    setPreview(reader.result);
+                };
+                reader.readAsDataURL(pastedFile);
+            } else {
+                setPreview(null);
+            }
+        }
+    };
+
+    const clearFile = () => {
+        setFile(null);
+        setPreview(null);
     };
 
     const handleSubmit = async (e) => {
@@ -27,9 +62,9 @@ function MessageInput({ socket }) {
 
                 socket.emit('chat message', {
                     content: res.data.filePath,
-                    type: 'image' // Simplified: assume images for now, can extend to files
+                    type: 'image'
                 });
-                setFile(null);
+                clearFile();
             } catch (err) {
                 console.error(err);
             }
@@ -40,26 +75,39 @@ function MessageInput({ socket }) {
     };
 
     return (
-        <form className="message-input" onSubmit={handleSubmit}>
-            <input
-                type="text"
-                placeholder="Type a message..."
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                onKeyPress={handleTyping}
-            />
-            <input
-                type="file"
-                id="file-upload"
-                style={{ display: 'none' }}
-                onChange={handleFileChange}
-                accept="image/*"
-            />
-            <label htmlFor="file-upload" className="file-btn">
-                📷
-            </label>
-            <button type="submit">Send</button>
-        </form>
+        <div className="input-container">
+            {file && (
+                <div className="file-preview">
+                    {preview ? (
+                        <img src={preview} alt="Preview" className="preview-image" />
+                    ) : (
+                        <div className="file-info">📄 {file.name}</div>
+                    )}
+                    <button className="remove-file-btn" onClick={clearFile}>×</button>
+                </div>
+            )}
+            <form className="message-input" onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    placeholder="Escribe un mensaje..."
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    onKeyPress={handleTyping}
+                    onPaste={handlePaste}
+                />
+                <input
+                    type="file"
+                    id="file-upload"
+                    style={{ display: 'none' }}
+                    onChange={handleFileChange}
+                    accept="image/*"
+                />
+                <label htmlFor="file-upload" className="file-btn">
+                    📷
+                </label>
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
     );
 }
 

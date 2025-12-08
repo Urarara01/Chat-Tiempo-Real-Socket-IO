@@ -21,7 +21,7 @@ function Login({ onLogin }) {
                     onChange={(e) => setName(e.target.value)}
                     autoFocus
                 />
-                <button type="submit">Join Chat</button>
+                <button type="submit">Unirse al chat</button>
             </form>
         </div>
     );

@@ -1,16 +1,16 @@
-const express = require('express');
-const app = express();
-const http = require('http');
-const server = http.createServer(app);
-const { Server } = require("socket.io");
-const cors = require('cors');
-const multer = require('multer');
-const path = require('path');
-const db = require('./database');
+const express = require('express'); // Importa el módulo express
+const app = express(); // Crea una aplicación express
+const http = require('http'); // Importa el módulo http
+const server = http.createServer(app); // Crea un servidor HTTP
+const { Server } = require("socket.io"); // Importa el módulo socket.io
+const cors = require('cors'); // Importa el módulo cors
+const multer = require('multer'); // Importa el módulo multer
+const path = require('path'); // Importa el módulo path
+const db = require('./database'); // Importa el módulo database
 
-app.use(cors());
-app.use(express.json());
-app.use('/uploads', express.static('uploads'));
+app.use(cors()); // Permite peticiones cross-origin
+app.use(express.json()); // Permite peticiones JSON
+app.use('/uploads', express.static('uploads')); // Permite peticiones estáticas
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {

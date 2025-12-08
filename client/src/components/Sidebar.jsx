@@ -6,12 +6,12 @@ function Sidebar({ room, setRoom, users, username, onLogout }) {
     return (
         <div className="sidebar">
             <div className="sidebar-header">
-                <h3>Chat App</h3>
-                <p>Logged in as: <strong>{username}</strong></p>
+                <h3>Chat</h3>
+                <p>Logueado como: <strong>{username}</strong></p>
             </div>
 
             <div className="sidebar-section">
-                <h4>Rooms</h4>
+                <h4>Salas</h4>
                 <ul>
                     {rooms.map((r) => (
                         <li
@@ -26,7 +26,7 @@ function Sidebar({ room, setRoom, users, username, onLogout }) {
             </div>
 
             <div className="sidebar-section">
-                <h4>Users</h4>
+                <h4>Usuarios</h4>
                 <ul>
                     {users.map((u, index) => (
                         <li key={index} className={u === username ? 'me' : ''}>
@@ -36,7 +36,7 @@ function Sidebar({ room, setRoom, users, username, onLogout }) {
                 </ul>
             </div>
 
-            <button className="logout-btn" onClick={onLogout}>Logout</button>
+            <button className="logout-btn" onClick={onLogout}>Cerrar sesión</button>
         </div>
     );
 }

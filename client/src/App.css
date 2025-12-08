@@ -232,3 +232,43 @@ body {
   border-radius: 20px;
   cursor: pointer;
 }
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-top: 1px solid #ddd;
+}
+
+.file-preview {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  background: #f0f2f5;
+  border-bottom: 1px solid #ddd;
+}
+
+.preview-image {
+  max-height: 100px;
+  border-radius: 8px;
+  margin-right: 10px;
+}
+
+.file-info {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.remove-file-btn {
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
