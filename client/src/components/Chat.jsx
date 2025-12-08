@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Sidebar from './Sidebar';
 import MessageList from './MessageList';
 import MessageInput from './MessageInput';
@@ -7,6 +7,8 @@ function Chat({ socket, username, room, setRoom, onLogout }) {
     const [messages, setMessages] = useState([]);
     const [users, setUsers] = useState([]);
     const [typingUser, setTypingUser] = useState('');
+
+    const typingTimeoutRef = useRef(null);
 
     useEffect(() => {
         socket.on('message', (message) => {
@@ -23,7 +25,8 @@ function Chat({ socket, username, room, setRoom, onLogout }) {
 
         socket.on('typing', (user) => {
             setTypingUser(user);
-            setTimeout(() => setTypingUser(''), 3000);
+            if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
+            typingTimeoutRef.current = setTimeout(() => setTypingUser(''), 1500);
         });
 
         return () => {

@@ -50,12 +50,25 @@ io.on('connection', (socket) => {
     console.log('a user connected');
 
     socket.on('join room', ({ username, room }) => {
+        // Leave previous room if any
+        if (socket.room) {
+            socket.leave(socket.room);
+            if (users[socket.room]) {
+                users[socket.room] = users[socket.room].filter(u => u !== socket.username);
+                io.to(socket.room).emit('room users', users[socket.room]);
+            }
+        }
+
         socket.join(room);
         socket.username = username;
         socket.room = room;
 
         if (!users[room]) users[room] = [];
-        users[room].push(username);
+
+        // Prevent duplicates in the new room
+        if (!users[room].includes(username)) {
+            users[room].push(username);
+        }
 
         io.to(room).emit('room users', users[room]);
 
@@ -82,8 +95,8 @@ io.on('connection', (socket) => {
             timestamp: new Date()
         };
 
-        db.run(`INSERT INTO messages (content, type, sender, room) VALUES (?, ?, ?, ?)`,
-            [messageData.content, messageData.type, messageData.sender, messageData.room],
+        db.run(`INSERT INTO messages (content, type, sender, room, timestamp) VALUES (?, ?, ?, ?, ?)`,
+            [messageData.content, messageData.type, messageData.sender, messageData.room, messageData.timestamp.toISOString()],
             function (err) {
                 if (err) return console.error(err.message);
                 io.to(socket.room).emit('message', messageData);
