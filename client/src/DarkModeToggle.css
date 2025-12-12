@@ -1,0 +1,60 @@
+:root {
+    --bg-color: #f8fafc;
+    --text-color: #1e293b;
+    --header-bg: #e2e8f0;
+    --btn-bg: #3b82f6;
+    --btn-text: #ffffff;
+    --toggle-bg: #94a3b8;
+    --toggle-circle: #ffffff;
+    --block-1: #ec4899;
+    --block-2: #facc15;
+    --block-3: #22c55e;
+    --block-4: #6366f1;
+}
+
+:has(#dark-mode-toggle:checked) {
+    --bg-color: #0f172a;
+    --text-color: #e2e8f0;
+    --header-bg: #1e293b;
+    --btn-bg: #14b8a6;
+    --btn-text: #0f172a;
+    --toggle-bg: #475569;
+    --toggle-circle: #0f172a;
+    --block-1: #f43f5e;
+    --block-2: #f97316;
+    --block-3: #84cc16;
+    --block-4: #3b82f6;
+}
+
+/* Dark Mode Toggle */
+#dark-mode-toggle {
+
+    display: none;
+}
+
+.toggle {
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+    background: var(--toggle-bg);
+    border-radius: 30px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.toggle::before {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 24px;
+    height: 24px;
+    background: var(--toggle-circle);
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+
+#dark-mode-toggle:checked+.toggle::before {
+    transform: translateX(30px);
+}

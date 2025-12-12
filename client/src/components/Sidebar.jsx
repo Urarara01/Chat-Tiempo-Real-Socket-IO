@@ -6,7 +6,13 @@ function Sidebar({ room, setRoom, users, username, onLogout }) {
     return (
         <div className="sidebar">
             <div className="sidebar-header">
-                <h3>Chat</h3>
+                <div>
+                    <h3>Chat</h3>
+                    <div className='dark-mode-container'>
+                        <input type="checkbox" id="dark-mode-toggle" />
+                        <label for="dark-mode-toggle" className="toggle"></label>
+                    </div>
+                </div>
                 <p>Logueado como: <strong>{username}</strong></p>
             </div>
 

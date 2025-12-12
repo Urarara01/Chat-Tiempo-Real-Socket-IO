@@ -64,7 +64,22 @@ body {
   padding: 1rem;
   border-bottom: 1px solid #ddd;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
+}
+
+.sidebar-header>div {
+  display: flex;
+  justify-content: space-between;
+  justify-items: center;
+}
+
+.dark-mode-container {
+  /* outline: 5px solid red; */
+  display: flex;
+  justify-content: space-between;
+  justify-items: center;
+  align-items: center;
 }
 
 .sidebar-section {

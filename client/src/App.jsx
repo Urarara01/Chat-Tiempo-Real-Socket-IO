@@ -3,6 +3,7 @@ import io from 'socket.io-client';
 import Login from './components/Login';
 import Chat from './components/Chat';
 import './App.css';
+import './DarkModeToggle.css';
 
 const socket = io('http://localhost:3000');
 
