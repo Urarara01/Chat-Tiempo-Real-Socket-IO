@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Sidebar({ room, setRoom, users, username, onLogout }) {
+function Sidebar({ room, setRoom, users, username, onLogout, darkMode, toggleDarkMode }) {
     const rooms = ['general', 'off-topic', 'soporte', 'random'];
 
     return (
@@ -9,8 +9,14 @@ function Sidebar({ room, setRoom, users, username, onLogout }) {
                 <div>
                     <h3>Chat</h3>
                     <div className='dark-mode-container'>
-                        <input type="checkbox" id="dark-mode-toggle" />
-                        <label for="dark-mode-toggle" className="toggle"></label>
+                        <input
+                            type="checkbox"
+                            className="theme-checkbox"
+                            id="dark-mode-toggle"
+                            checked={darkMode || false}
+                            onChange={toggleDarkMode}
+                        />
+                        <label htmlFor="dark-mode-toggle" className="toggle"></label>
                     </div>
                 </div>
                 <p>Logueado como: <strong>{username}</strong></p>
@@ -36,7 +42,7 @@ function Sidebar({ room, setRoom, users, username, onLogout }) {
                 <ul>
                     {users.map((u, index) => (
                         <li key={index} className={u === username ? 'me' : ''}>
-                            {u} {u === username && '(You)'}
+                            {u} {u === username && '(Tú)'}
                         </li>
                     ))}
                 </ul>

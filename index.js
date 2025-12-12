@@ -80,7 +80,7 @@ io.on('connection', (socket) => {
 
         socket.to(room).emit('message', {
             sender: 'System',
-            content: `${username} has joined the chat`,
+            content: `${username} se unió al chat`,
             type: 'text',
             timestamp: new Date()
         });
@@ -113,7 +113,7 @@ io.on('connection', (socket) => {
             io.to(socket.room).emit('room users', users[socket.room]);
             io.to(socket.room).emit('message', {
                 sender: 'System',
-                content: `${socket.username} has left the chat`,
+                content: `${socket.username} ha abandonado el chat`,
                 type: 'text',
                 timestamp: new Date()
             });

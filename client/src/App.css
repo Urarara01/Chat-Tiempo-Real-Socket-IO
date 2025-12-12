@@ -1,8 +1,9 @@
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
-  background-color: #f0f2f5;
-  color: #1c1e21;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .app-container {
@@ -14,7 +15,7 @@ body {
 
 /* Login */
 .login-container {
-  background: white;
+  background: var(--container-bg);
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -26,14 +27,16 @@ body {
   width: 100%;
   padding: 10px;
   margin: 10px 0;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
+  background: var(--input-bg);
+  color: var(--text-color);
 }
 
 .login-form button {
   width: 100%;
   padding: 10px;
-  background: #0084ff;
+  background: var(--primary-color);
   color: white;
   border: none;
   border-radius: 4px;
@@ -45,7 +48,7 @@ body {
   display: flex;
   width: 90%;
   height: 90vh;
-  background: white;
+  background: var(--container-bg);
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -54,15 +57,15 @@ body {
 /* Sidebar */
 .sidebar {
   width: 250px;
-  background: #f7f7f7;
-  border-right: 1px solid #ddd;
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
 }
 
 .sidebar-header {
   padding: 1rem;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -101,24 +104,24 @@ body {
 }
 
 .sidebar li:hover {
-  background: #e4e6eb;
+  background: var(--message-bg);
 }
 
 .sidebar li.active {
-  background: #e7f3ff;
-  color: #0084ff;
+  background: var(--active-bg);
+  color: var(--primary-color);
   font-weight: bold;
 }
 
 .sidebar li.me {
   font-style: italic;
-  color: #65676b;
+  color: var(--text-secondary);
 }
 
 .logout-btn {
   margin: 1rem;
   padding: 8px;
-  background: #ff4d4d;
+  background: var(--danger-bg);
   color: white;
   border: none;
   border-radius: 4px;
@@ -134,18 +137,18 @@ body {
 
 .chat-header {
   padding: 1rem;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--border-color);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: white;
+  background: var(--header-bg);
 }
 
 .message-list {
   flex-grow: 1;
   padding: 1rem;
   overflow-y: auto;
-  background: #fff;
+  background: var(--container-bg);
   display: flex;
   flex-direction: column;
 }
@@ -163,15 +166,15 @@ body {
 .message.system {
   align-self: center;
   font-size: 0.85rem;
-  color: #65676b;
-  background: #e4e6eb;
+  color: var(--text-secondary);
+  background: var(--message-bg);
   padding: 4px 12px;
   border-radius: 12px;
 }
 
 .message-sender {
   font-size: 0.75rem;
-  color: #65676b;
+  color: var(--text-secondary);
   margin-bottom: 2px;
   margin-left: 12px;
 }
@@ -184,13 +187,13 @@ body {
 .message-content {
   padding: 8px 12px;
   border-radius: 18px;
-  background: #e4e6eb;
-  color: #050505;
+  background: var(--message-bg);
+  color: var(--message-text);
   position: relative;
 }
 
 .message.own .message-content {
-  background: #0084ff;
+  background: var(--primary-color);
   color: white;
 }
 
@@ -210,7 +213,7 @@ body {
 .typing-indicator {
   padding: 0 1rem;
   font-size: 0.8rem;
-  color: #65676b;
+  color: var(--text-secondary);
   font-style: italic;
   height: 20px;
 }
@@ -218,18 +221,57 @@ body {
 /* Input */
 .message-input {
   padding: 1rem;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid var(--border-color);
   display: flex;
   align-items: center;
-  background: white;
+  background: var(--container-bg);
 }
 
 .message-input input[type="text"] {
   flex-grow: 1;
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   border-radius: 20px;
   margin-right: 10px;
+  background: var(--input-bg);
+  color: var(--text-color);
+  transition: border-color 0.4s;
+}
+
+.message-input input[type="text"]:hover {
+  transition: border-color 800ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  /* transition: border-color 500ms ease-in; */
+  outline: none;
+  border: 1px solid var(--primary-color);
+}
+
+.message-input input:focus {
+  outline: none;
+  /* border: none; */
+  box-shadow: none;
+  animation: rotateShadow 2s infinite linear;
+}
+
+@keyframes rotateShadow {
+  0% {
+    box-shadow: -2px -2px 8px 1px #aa00ff, 2px 2px 8px 1px #3700ff;
+  }
+
+  25% {
+    box-shadow: -2px 2px 8px 1px #aa00ff, 2px -2px 8px 1px #3700ff;
+  }
+
+  50% {
+    box-shadow: 2px 2px 8px 1px #aa00ff, -2px -2px 8px 1px #3700ff;
+  }
+
+  75% {
+    box-shadow: 2px -2px 8px 1px #aa00ff, -2px 2px 8px 1px #3700ff;
+  }
+
+  100% {
+    box-shadow: -2px -2px 8px 1px #aa00ff, 2px 2px 8px 1px #3700ff;
+  }
 }
 
 .file-btn {
@@ -241,7 +283,7 @@ body {
 
 .message-input button {
   padding: 10px 20px;
-  background: #0084ff;
+  background: var(--primary-color);
   color: white;
   border: none;
   border-radius: 20px;
@@ -251,16 +293,16 @@ body {
 .input-container {
   display: flex;
   flex-direction: column;
-  background: white;
-  border-top: 1px solid #ddd;
+  background: var(--container-bg);
+  border-top: 1px solid var(--border-color);
 }
 
 .file-preview {
   padding: 10px;
   display: flex;
   align-items: center;
-  background: #f0f2f5;
-  border-bottom: 1px solid #ddd;
+  background: var(--bg-color);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .preview-image {
@@ -275,7 +317,7 @@ body {
 }
 
 .remove-file-btn {
-  background: #ff4d4d;
+  background: var(--danger-bg);
   color: white;
   border: none;
   border-radius: 50%;
@@ -286,4 +328,32 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 16px;
+}
+
+/* Barra de desplazamiento */
+/* Ancho de la barra */
+::-webkit-scrollbar {
+  width: 3px;
+}
+
+::-webkit-scrollbar:hover {
+  width: 5px;
+}
+
+/* Fondo del track */
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+  /* background-color: antiquewhite; */
+}
+
+/* La parte que se mueve */
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 5px;
+}
+
+/* Hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
+  background-color: antiquewhite;
 }

@@ -11,6 +11,15 @@ function App() {
   const [username, setUsername] = useState(localStorage.getItem('username') || '');
   const [room, setRoom] = useState('general');
   const [joined, setJoined] = useState(false);
+  const [darkMode, setDarkMode] = useState(localStorage.getItem('darkMode') === 'true');
+
+  useEffect(() => {
+    if (darkMode) {
+      document.body.classList.add('dark-mode');
+    } else {
+      document.body.classList.remove('dark-mode');
+    }
+  }, [darkMode]);
 
   useEffect(() => {
     if (username && joined) {
@@ -32,6 +41,14 @@ function App() {
     socket.connect();
   };
 
+  const toggleDarkMode = () => {
+    setDarkMode(prev => {
+      const newMode = !prev;
+      localStorage.setItem('darkMode', newMode);
+      return newMode;
+    });
+  };
+
   return (
     <div className="app-container">
       {!joined ? (
@@ -43,6 +60,8 @@ function App() {
           room={room}
           setRoom={setRoom}
           onLogout={handleLogout}
+          darkMode={darkMode}
+          toggleDarkMode={toggleDarkMode}
         />
       )}
     </div>
